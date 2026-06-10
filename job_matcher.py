@@ -168,9 +168,13 @@ def _must_have_filter(chunk: dict, requirements: dict) -> tuple[bool, float, str
         return True, 0.5, "metadata unavailable: " + ", ".join(unavailable_reasons)
 
     normalized_candidate_skills = {skill.lower() for skill in candidate_skills}
+    chunk_text = chunk.get("document", "")
     for required_skill in required_skills:
-        if required_skill.lower() not in normalized_candidate_skills:
-            return False, 0.3, f"missing required skill: {required_skill}"
+        if required_skill.lower() in normalized_candidate_skills:
+            continue
+        if _term_in_text(required_skill, chunk_text):
+            continue
+        return False, 0.3, f"missing required skill: {required_skill}"
 
     if min_experience_years and experience_years < min_experience_years:
         return False, 0.5, "below required experience"
@@ -324,6 +328,15 @@ def _validate_top_k(top_k: int) -> int:
     return top_k
 
 
+def _search_n_results(top_k: int) -> int:
+    """Scale semantic search breadth with corpus size so all resumes can surface."""
+    collection = get_chroma_collection()
+    total_chunks = collection.count()
+    if total_chunks == 0:
+        return max(top_k * 5, 50)
+    return min(total_chunks, max(top_k * 10, 100))
+
+
 def search_resumes(job_description: str, top_k: int = 10) -> list[dict]:
     """Run hybrid search and return ranked candidate-level matches."""
     top_k = _validate_top_k(top_k)
@@ -331,7 +344,7 @@ def search_resumes(job_description: str, top_k: int = 10) -> list[dict]:
     chunks = _search_resume_chunks(
         job_description,
         requirements,
-        n_results=max(top_k * 5, 50),
+        n_results=_search_n_results(top_k),
     )
     candidates = _aggregate_by_candidate(chunks, requirements)
 

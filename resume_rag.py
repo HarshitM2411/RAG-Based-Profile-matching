@@ -182,10 +182,12 @@ def _find_skills_in_text(text: str) -> list[str]:
 
 
 def _extract_skills(text: str) -> str:
+    """Collect skills from the dedicated section and the full resume text."""
     section_text = _extract_section_text(text, "skills")
-    search_text = section_text or text
-    skills = _find_skills_in_text(search_text)
-    return ",".join(skills)
+    section_skills = _find_skills_in_text(section_text) if section_text else []
+    full_text_skills = _find_skills_in_text(text)
+    merged_skills = list(dict.fromkeys(section_skills + full_text_skills))
+    return ",".join(merged_skills)
 
 
 def _extract_experience_years(text: str) -> int:
