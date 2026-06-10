@@ -8,3 +8,9 @@ pydantic>=2.0.0
 fastapi>=0.115.0
 uvicorn[standard]>=0.32.0
 python-multipart>=0.0.12
+
+# Evaluation notebook dependencies
+jupyter>=1.0.0
+ipykernel>=6.29.0
+pandas>=2.0.0
+matplotlib>=3.8.0

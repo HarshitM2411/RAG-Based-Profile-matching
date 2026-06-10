@@ -1,0 +1,30 @@
+{
+  "job_descriptions": {
+    "ml_engineer": {
+      "title": "Python ML Engineer",
+      "path": "docs/sample_jd.txt",
+      "labels": {
+        "resumes/arjun_patel.txt": "relevant",
+        "resumes/priya_sharma.txt": "relevant",
+        "resumes/amit_verma.txt": "partial",
+        "resumes/diana_okonkwo.txt": "partial",
+        "resumes/chloe_mitchell.txt": "not_relevant",
+        "resumes/liam_chen.txt": "not_relevant",
+        "resumes/ethan_brooks.txt": "not_relevant"
+      }
+    },
+    "frontend": {
+      "title": "Frontend Engineer",
+      "path": "docs/jd_frontend.txt",
+      "labels": {
+        "resumes/liam_chen.txt": "relevant",
+        "resumes/chloe_mitchell.txt": "relevant",
+        "resumes/Harshit Lead Engineer - Harshit Meena.pdf": "partial",
+        "resumes/arjun_patel.txt": "not_relevant",
+        "resumes/priya_sharma.txt": "not_relevant",
+        "resumes/diana_okonkwo.txt": "not_relevant"
+      }
+    }
+  },
+  "notes": "Treat relevant and partial as positive labels for Precision@K and Recall@K (lenient mode per docs/eval.md)."
+}

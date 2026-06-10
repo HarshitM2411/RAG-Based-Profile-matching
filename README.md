@@ -102,7 +102,38 @@ python job_matcher.py --jd docs/sample_jd.txt --top-k 10
 
 # Run validation tests
 python validate.py
+
+# Run retrieval accuracy + latency benchmarks
+python eval_harness.py
 ```
+
+## Evaluation Notebook
+
+Deliverable: experimentation, retrieval accuracy, and latency analysis.
+
+```bash
+# Install notebook dependencies (one-time)
+pip install jupyter ipykernel pandas matplotlib
+
+# Or install everything from requirements.txt
+pip install -r requirements.txt
+
+# Build vector store first if not already done
+python resume_rag.py --resume-dir resumes
+
+# Option A — Jupyter in browser
+jupyter notebook notebooks/rag_evaluation.ipynb
+
+# Option B — Open notebooks/rag_evaluation.ipynb in Cursor/VS Code
+# Select the Python kernel for the project and run all cells
+```
+
+| Asset | Purpose |
+|---|---|
+| `notebooks/rag_evaluation.ipynb` | Interactive experiments, charts, and analysis |
+| `eval_harness.py` | Reusable metrics module (Precision@K, Recall@K, MRR, latency) |
+| `data/eval_labels.json` | Manually labelled ground truth per job description |
+| `docs/eval.md` | Full evaluation methodology |
 
 ## Project Structure
 
@@ -115,6 +146,9 @@ python validate.py
 ├── llm.py                 # Groq LLM integration
 ├── skills_vocab.py        # Known skills vocabulary
 ├── validate.py            # Acceptance tests
+├── eval_harness.py        # Retrieval accuracy & latency benchmarks
+├── notebooks/             # Jupyter evaluation notebook
+├── data/eval_labels.json  # Labelled evaluation ground truth
 ├── resumes/               # Uploaded resume files
 ├── vector_store/          # ChromaDB persistence (gitignored)
 ├── docs/                  # Architecture, implementation, sample JD

@@ -1,0 +1,9 @@
+We are hiring a Frontend Engineer with strong React and TypeScript experience.
+
+Required skills:
+- React
+- TypeScript
+- JavaScript
+
+The ideal candidate has 2+ years of experience building responsive web applications,
+collaborating with backend teams, and using Git in agile delivery workflows.
