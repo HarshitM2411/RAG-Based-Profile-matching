@@ -4,13 +4,26 @@ import { Icon } from '../components/Icon'
 import { TopBar } from '../components/TopBar'
 import type { ResumeFile } from '../types'
 
+function formatFileSize(sizeKb: number) {
+  if (sizeKb >= 1024) return `${(sizeKb / 1024).toFixed(1)} MB`
+  return `${sizeKb} KB`
+}
+
+const PIPELINE_STEP_HINTS: Record<string, string> = {
+  'Load Files': 'Reading uploaded resume files from disk.',
+  'Extract Text & Metadata': 'Entity extraction and skill parsing.',
+  'Section Chunking': 'Splitting into 512-token windows...',
+  'Generate Embeddings': 'Pending embedding model batch.',
+  'Store in ChromaDB': 'Awaiting embedding vectors.',
+}
+
 const PIPELINE_STEPS = [
   'Load Files',
   'Extract Text & Metadata',
   'Section Chunking',
   'Generate Embeddings',
   'Store in ChromaDB',
-]
+] as const
 
 function fileIcon(format: string) {
   if (format === 'PDF') return { icon: 'picture_as_pdf', color: 'text-error' }
@@ -124,8 +137,14 @@ export function ResumeIngestion() {
 
   return (
     <>
-      <TopBar title="Resume Ingestion Pipeline" searchPlaceholder="Search ingested files..." />
-      <main className="ml-[260px] min-h-screen pt-16">
+      <TopBar
+        title="Resume Ingestion Pipeline"
+        searchPlaceholder="Search ingested files..."
+        searchIconPosition="left"
+        searchWidth="w-72"
+        searchBorderless
+      />
+      <main className="ml-[260px] min-h-screen bg-background pt-16">
         <div className="mx-auto max-w-[1440px] p-6">
           {successMessage ? (
             <div className="mb-8 flex items-center justify-between rounded-xl border border-on-tertiary-container/10 bg-tertiary-fixed p-4 text-on-tertiary-fixed">
@@ -148,7 +167,7 @@ export function ResumeIngestion() {
           <div className="grid grid-cols-12 gap-5">
             <div className="col-span-12 space-y-5 lg:col-span-8">
               <div
-                className="group flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-lowest p-10 text-center transition-all hover:border-secondary"
+                className="group card-elevated flex flex-col items-center justify-center rounded-[10px] border-2 border-dashed border-outline-variant bg-surface-container-lowest p-10 text-center transition-all hover:border-secondary"
                 onDragOver={(event) => event.preventDefault()}
                 onDrop={(event) => {
                   event.preventDefault()
@@ -160,11 +179,11 @@ export function ResumeIngestion() {
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">Drag and drop resumes here</h3>
                 <p className="mb-6 max-w-sm text-on-surface-variant">
-                  Support for PDF, DOCX, and TXT files. Up to 50 files per batch.
+                  Support for PDF, DOCX, and TXT files. Up to 50 files per batch (max 10MB each).
                 </p>
                 <button
                   type="button"
-                  className="rounded-lg bg-secondary px-8 py-3 font-medium text-on-secondary transition-all hover:opacity-90 active:scale-[0.98]"
+                  className="rounded-[10px] bg-secondary px-8 py-3 font-medium text-on-secondary transition-all hover:opacity-90 active:scale-[0.98]"
                   onClick={() => fileInputRef.current?.click()}
                 >
                   Select Files from Computer
@@ -179,13 +198,13 @@ export function ResumeIngestion() {
                 />
               </div>
 
-              <div className="overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest">
+              <div className="card-elevated overflow-hidden rounded-[10px] border border-outline-variant bg-surface-container-lowest">
                 <div className="flex items-center justify-between border-b border-outline-variant px-6 py-4">
                   <h3 className="text-lg font-semibold">Current Ingestion Batch</h3>
                   <button
                     type="button"
                     className="text-sm font-medium text-secondary hover:underline"
-                    onClick={() => setResumes([])}
+                    onClick={() => void loadResumes()}
                   >
                     Clear List
                   </button>
@@ -199,6 +218,7 @@ export function ResumeIngestion() {
                         <th className="px-6 py-3 font-semibold">Skills</th>
                         <th className="px-6 py-3 font-semibold">Exp.</th>
                         <th className="px-6 py-3 font-semibold">Status</th>
+                        <th className="px-6 py-3 font-semibold" />
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-outline-variant">
@@ -211,21 +231,31 @@ export function ResumeIngestion() {
                                 <Icon name={icon.icon} className={icon.color} />
                                 <div>
                                   <p className="font-medium">{resume.file_name}</p>
-                                  <p className="text-xs text-on-surface-variant">{resume.size_kb} KB</p>
+                                  <p className="text-xs text-on-surface-variant">
+                                    {formatFileSize(resume.size_kb)}
+                                  </p>
                                 </div>
                               </div>
                             </td>
-                            <td className="px-6 py-4 font-medium">{resume.candidate_name}</td>
+                            <td className="px-6 py-4 font-medium">
+                              {resume.candidate_name || (
+                                <span className="italic text-on-surface-variant">Parsing...</span>
+                              )}
+                            </td>
                             <td className="px-6 py-4">
                               <div className="flex flex-wrap gap-1">
-                                {resume.skills.map((skill) => (
-                                  <span
-                                    key={skill}
-                                    className="rounded bg-secondary-fixed px-2 py-0.5 text-xs text-on-secondary-fixed"
-                                  >
-                                    {skill}
-                                  </span>
-                                ))}
+                                {resume.skills.length ? (
+                                  resume.skills.map((skill) => (
+                                    <span
+                                      key={skill}
+                                      className="rounded bg-secondary-fixed px-2 py-0.5 text-xs text-on-secondary-fixed"
+                                    >
+                                      {skill}
+                                    </span>
+                                  ))
+                                ) : (
+                                  <span className="text-on-surface-variant">—</span>
+                                )}
                               </div>
                             </td>
                             <td className="px-6 py-4">
@@ -234,6 +264,16 @@ export function ResumeIngestion() {
                                 : '—'}
                             </td>
                             <td className="px-6 py-4">{statusBadge(resume.status)}</td>
+                            <td className="px-6 py-4 text-right">
+                              <button
+                                type="button"
+                                className="text-on-surface-variant transition-colors hover:text-primary"
+                              >
+                                <Icon
+                                  name={resume.status === 'failed' ? 'refresh' : 'more_vert'}
+                                />
+                              </button>
+                            </td>
                           </tr>
                         )
                       })}
@@ -249,11 +289,11 @@ export function ResumeIngestion() {
             </div>
 
             <div className="col-span-12 space-y-5 lg:col-span-4">
-              <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-6">
+              <div className="card-elevated rounded-[10px] border border-outline-variant bg-surface-container-lowest p-6">
                 <button
                   type="button"
                   disabled={ingesting}
-                  className="flex w-full items-center justify-center gap-3 rounded-lg bg-primary py-4 text-lg font-semibold text-on-primary transition-all hover:bg-on-primary-fixed-variant active:scale-[0.98] disabled:opacity-60"
+                  className="flex w-full items-center justify-center gap-3 rounded-[10px] bg-primary py-4 text-lg font-semibold text-on-primary transition-all hover:bg-on-primary-fixed-variant active:scale-[0.98] disabled:opacity-60"
                   onClick={() => void runIngestion()}
                 >
                   <Icon name="database" />
@@ -263,19 +303,20 @@ export function ResumeIngestion() {
                   <span>
                     ChromaDB State:{' '}
                     <span className="font-bold text-tertiary-fixed-dim">
-                      {ingesting ? 'BUILDING' : 'READY'}
+                      {ingesting ? 'BUILDING' : activeStep >= PIPELINE_STEPS.length ? 'OPTIMIZED' : 'READY'}
                     </span>
                   </span>
                   <span>Last update: {lastUpdate}</span>
                 </div>
               </div>
 
-              <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-6">
+              <div className="card-elevated rounded-[10px] border border-outline-variant bg-surface-container-lowest p-6">
                 <h3 className="mb-6 text-lg font-semibold">Pipeline Progress</h3>
                 <div className="space-y-6">
                   {PIPELINE_STEPS.map((step, index) => {
                     const done = activeStep > index
                     const active = activeStep === index
+                    const pending = activeStep < index
                     return (
                       <div key={step} className="flex gap-4">
                         <div className="flex flex-col items-center">
@@ -297,7 +338,20 @@ export function ResumeIngestion() {
                           ) : null}
                         </div>
                         <div className="pb-6">
-                          <p className={`font-medium ${active ? 'text-secondary' : ''}`}>{step}</p>
+                          <p
+                            className={`font-medium ${
+                              active ? 'text-secondary' : pending ? 'text-on-surface-variant/60' : ''
+                            }`}
+                          >
+                            {step}
+                          </p>
+                          <p
+                            className={`text-xs ${
+                              pending ? 'text-on-surface-variant/40' : 'text-on-surface-variant'
+                            }`}
+                          >
+                            {PIPELINE_STEP_HINTS[step]}
+                          </p>
                           {active && ingesting ? (
                             <div className="mt-2 h-1.5 w-48 overflow-hidden rounded-full bg-surface-container-high">
                               <div className="h-full w-2/3 animate-pulse bg-secondary" />
@@ -310,12 +364,13 @@ export function ResumeIngestion() {
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-xl bg-primary-container p-4 font-mono text-[13px]">
+              <div className="overflow-hidden rounded-[10px] bg-primary-container p-4 font-mono text-[13px]">
                 <div className="mb-3 flex items-center justify-between border-b border-on-primary-fixed-variant/20 pb-2">
                   <span className="flex items-center gap-2 text-xs text-on-primary-container">
                     <span className="h-2 w-2 animate-ping rounded-full bg-tertiary-fixed-dim" />
                     LIVE_LOG.TXT
                   </span>
+                  <span className="text-[10px] text-on-primary-container/40">v2.4.0-stable</span>
                 </div>
                 <div className="custom-scrollbar h-48 space-y-1 overflow-y-auto text-on-primary-container/80">
                   {logs.map((line, index) => (

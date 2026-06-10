@@ -23,10 +23,10 @@ export function Sidebar() {
             to={item.to}
             end={item.to === '/'}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-3 transition-colors duration-200 ${
+              `flex items-center gap-3 border-l-4 px-4 py-3 transition-colors duration-200 ${
                 isActive
-                  ? 'border-l-4 border-secondary bg-on-primary-fixed-variant/20 text-on-primary'
-                  : 'text-on-primary-container/70 hover:bg-on-primary-fixed-variant/10 hover:text-on-primary'
+                  ? 'border-secondary bg-on-primary-fixed-variant/20 text-on-primary'
+                  : 'border-transparent text-on-primary-container/70 hover:bg-on-primary-fixed-variant/10 hover:text-on-primary'
               }`
             }
           >
@@ -43,7 +43,7 @@ export function Sidebar() {
           </div>
           <div>
             <p className="text-sm font-medium text-on-primary">Alex Recruiter</p>
-            <p className="text-xs text-on-primary-container">Lead Recruiter</p>
+            <p className="text-xs text-on-primary-container">Admin Access</p>
           </div>
         </div>
       </div>

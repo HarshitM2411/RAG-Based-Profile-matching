@@ -9,9 +9,24 @@ import type { JdRequirements } from '../types'
 const LOADING_STATUSES = [
   'Querying vector store...',
   'Scoring candidates...',
-  'Applying hybrid filters...',
+  'Ranking by strict requirements...',
   'Generating match summaries...',
 ]
+
+function inferSeniority(jobDescription: string) {
+  if (/senior|lead|principal|staff/i.test(jobDescription)) return 'Senior / Lead'
+  if (/junior|entry|graduate/i.test(jobDescription)) return 'Junior / Entry'
+  if (/mid[- ]?level|intermediate/i.test(jobDescription)) return 'Mid-Level'
+  return 'Not specified'
+}
+
+function inferLocation(jobDescription: string) {
+  if (/remote/i.test(jobDescription) && /hybrid/i.test(jobDescription)) return 'Remote / Hybrid'
+  if (/remote/i.test(jobDescription)) return 'Remote'
+  if (/hybrid/i.test(jobDescription)) return 'Hybrid'
+  if (/on[- ]site|in[- ]office/i.test(jobDescription)) return 'On-site'
+  return 'Not specified'
+}
 
 export function JobMatching() {
   const navigate = useNavigate()
@@ -19,6 +34,7 @@ export function JobMatching() {
   const [jobDescription, setJobDescription] = useState('')
   const [topK, setTopK] = useState(10)
   const [strictFilter, setStrictFilter] = useState(true)
+  const [vectorOnlySearch, setVectorOnlySearch] = useState(false)
   const [requirements, setRequirements] = useState<JdRequirements | null>(null)
   const [loading, setLoading] = useState(false)
   const [loadingStatus, setLoadingStatus] = useState(LOADING_STATUSES[0])
@@ -94,7 +110,7 @@ export function JobMatching() {
         <section className="flex-1 overflow-y-auto p-6">
           <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-5">
             <div className="col-span-12 space-y-6 lg:col-span-8">
-              <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-6 shadow-sm">
+              <div className="card-elevated rounded-[10px] border border-outline-variant bg-surface-container-lowest p-6">
                 <div className="mb-4 flex items-center justify-between">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     <Icon name="description" className="text-secondary" />
@@ -110,22 +126,27 @@ export function JobMatching() {
                 </div>
                 <textarea
                   className="min-h-[300px] w-full resize-none rounded-lg border border-outline-variant bg-surface-container-low p-4 text-sm outline-none transition-all focus:border-secondary focus:ring-2 focus:ring-secondary/20"
-                  placeholder={`Paste the full job description here...
+                  placeholder={`Paste the full job description here (Responsibilities, Requirements, Benefits)...
 
-Example: Looking for a Python Machine Learning Engineer with 5+ years of experience, SQL, and AWS.`}
+Example: We are looking for a Senior ML Engineer with 5+ years of experience in Python and PyTorch. Experience with RAG architectures and Vector Databases (Pinecone/Milvus) is highly desirable...`}
                   value={jobDescription}
                   onChange={(event) => setJobDescription(event.target.value)}
                 />
-                <div className="mt-6 flex items-center justify-between">
-                  <div className="flex gap-4">
+                <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex flex-wrap gap-4">
                     <div className="flex items-center gap-2 rounded-lg border border-outline-variant bg-surface-container px-3 py-1.5 text-xs">
                       <Icon name="attach_file" className="text-sm" />
-                      PDF / DOCX
+                      Upload PDF/Docx
+                    </div>
+                    <div className="flex items-center gap-2 rounded-lg border border-outline-variant bg-surface-container px-3 py-1.5 text-xs">
+                      <Icon name="link" className="text-sm" />
+                      Import from URL
                     </div>
                   </div>
                   <button
                     type="button"
-                    className="flex items-center gap-2 rounded-lg bg-secondary px-8 py-3 font-semibold text-on-secondary shadow-md transition-all hover:opacity-90 active:scale-[0.98]"
+                    disabled={loading}
+                    className="flex items-center gap-2 rounded-[10px] bg-secondary px-8 py-3 font-semibold text-on-secondary shadow-md transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
                     onClick={() => void runMatch()}
                   >
                     <Icon name="spark" />
@@ -134,7 +155,7 @@ Example: Looking for a Python Machine Learning Engineer with 5+ years of experie
                 </div>
               </div>
 
-              <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-6 shadow-sm">
+              <div className="card-elevated rounded-[10px] border border-outline-variant bg-surface-container-lowest p-6">
                 <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold">
                   <Icon name="analytics" className="text-tertiary-fixed-dim" />
                   Requirement Insights
@@ -174,12 +195,16 @@ Example: Looking for a Python Machine Learning Engineer with 5+ years of experie
                         </span>
                       </div>
                       <div className="flex items-center justify-between border-b border-outline-variant pb-1">
-                        <span className="text-on-surface-variant">Keywords</span>
-                        <span className="font-bold">{requirements?.jd_keywords_count ?? 0}</span>
+                        <span className="text-on-surface-variant">Seniority</span>
+                        <span className="font-bold">
+                          {jobDescription.trim() ? inferSeniority(jobDescription) : 'Not specified'}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between border-b border-outline-variant pb-1">
-                        <span className="text-on-surface-variant">Strict filtering</span>
-                        <span className="font-bold">{strictFilter ? 'Enabled' : 'Disabled'}</span>
+                        <span className="text-on-surface-variant">Location</span>
+                        <span className="font-bold">
+                          {jobDescription.trim() ? inferLocation(jobDescription) : 'Not specified'}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -194,7 +219,7 @@ Example: Looking for a Python Machine Learning Engineer with 5+ years of experie
             </div>
 
             <div className="col-span-12 space-y-6 lg:col-span-4">
-              <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-6 shadow-sm">
+              <div className="card-elevated rounded-[10px] border border-outline-variant bg-surface-container-lowest p-6">
                 <h3 className="mb-6 flex items-center gap-2 text-lg font-semibold">
                   <Icon name="tune" />
                   Matching Parameters
@@ -202,7 +227,7 @@ Example: Looking for a Python Machine Learning Engineer with 5+ years of experie
                 <div className="mb-8 space-y-4">
                   <div className="flex items-center justify-between">
                     <label className="text-sm font-medium">Top K Results</label>
-                    <span className="text-lg font-bold text-secondary">{topK}</span>
+                    <span className="tabular-nums text-lg font-bold text-secondary">{topK}</span>
                   </div>
                   <input
                     className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-surface-container accent-secondary"
@@ -212,12 +237,16 @@ Example: Looking for a Python Machine Learning Engineer with 5+ years of experie
                     value={topK}
                     onChange={(event) => setTopK(Number(event.target.value))}
                   />
+                  <div className="flex justify-between text-[10px] uppercase tracking-tighter text-on-surface-variant">
+                    <span>Precision</span>
+                    <span>Recall Focus</span>
+                  </div>
                 </div>
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-sm font-medium">Strict filtering</span>
-                      <p className="text-xs text-on-surface-variant">Only must-have skills</p>
+                      <p className="text-xs text-on-surface-variant">Only "Must-have" skills</p>
                     </div>
                     <label className="relative inline-flex cursor-pointer items-center">
                       <input
@@ -226,7 +255,22 @@ Example: Looking for a Python Machine Learning Engineer with 5+ years of experie
                         checked={strictFilter}
                         onChange={(event) => setStrictFilter(event.target.checked)}
                       />
-                      <div className="peer h-6 w-11 rounded-full bg-surface-container-highest after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-secondary peer-checked:after:translate-x-full" />
+                      <div className="peer h-6 w-11 rounded-full bg-surface-variant after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-secondary peer-checked:after:translate-x-full" />
+                    </label>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-sm font-medium">Vector-only search</span>
+                      <p className="text-xs text-on-surface-variant">Ignore keyword overlap</p>
+                    </div>
+                    <label className="relative inline-flex cursor-pointer items-center">
+                      <input
+                        className="peer sr-only"
+                        type="checkbox"
+                        checked={vectorOnlySearch}
+                        onChange={(event) => setVectorOnlySearch(event.target.checked)}
+                      />
+                      <div className="peer h-6 w-11 rounded-full bg-surface-variant after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-secondary peer-checked:after:translate-x-full" />
                     </label>
                   </div>
                 </div>
@@ -235,14 +279,15 @@ Example: Looking for a Python Machine Learning Engineer with 5+ years of experie
                   <div className="flex gap-3">
                     <Icon name="info" className="text-on-tertiary-container" />
                     <p className="text-xs text-on-tertiary-container">
-                      Your query will search against <strong>{resumeCount}</strong> indexed resumes
-                      in the ChromaDB collection.
+                      Your current selection will query against{' '}
+                      <strong>{resumeCount.toLocaleString()}</strong> indexed resumes in the{' '}
+                      <strong>resumes</strong> collection.
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-6 shadow-sm">
+              <div className="card-elevated rounded-[10px] border border-outline-variant bg-surface-container-lowest p-6">
                 <h3 className="mb-4 text-xs uppercase tracking-widest text-on-surface-variant">
                   Recent Searches
                 </h3>
@@ -274,7 +319,7 @@ Example: Looking for a Python Machine Learning Engineer with 5+ years of experie
             <div className="mb-8 h-16 w-16 animate-spin rounded-full border-4 border-secondary/20 border-t-secondary" />
             <h3 className="mb-2 text-center text-2xl font-semibold text-primary">{loadingStatus}</h3>
             <p className="mb-10 text-center text-sm text-on-surface-variant">
-              Comparing semantic embeddings against indexed talent profiles.
+              Comparing semantic embeddings against {resumeCount.toLocaleString()}+ talent profiles.
             </p>
             <div className="w-full space-y-4">
               <div className="skeleton-pulse h-16 w-full rounded-lg" />

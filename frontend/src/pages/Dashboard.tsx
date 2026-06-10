@@ -11,8 +11,12 @@ function formatTimestamp(value: string | null) {
 }
 
 function statusLabel(status: DashboardStats['vector_store_status']) {
-  if (status === 'connected') return { text: 'Connected', className: 'bg-tertiary-fixed text-on-tertiary-fixed' }
-  if (status === 'error') return { text: 'Error', className: 'bg-error-container text-on-error-container' }
+  if (status === 'connected') {
+    return { text: 'Connected', className: 'bg-tertiary-fixed text-on-tertiary-fixed' }
+  }
+  if (status === 'error') {
+    return { text: 'Error', className: 'bg-error-container text-on-error-container' }
+  }
   return { text: 'Not Built', className: 'bg-amber-100 text-amber-700' }
 }
 
@@ -32,10 +36,12 @@ export function Dashboard() {
   return (
     <>
       <TopBar title="Dashboard" searchPlaceholder="Search activity..." />
-      <main className="ml-[260px] min-h-screen pt-16">
+      <main className="ml-[260px] min-h-screen bg-background pt-16">
         <div className="mx-auto max-w-[1440px] p-6">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold tracking-tight text-primary">TalentMatch RAG</h1>
+            <h1 className="text-[36px] font-bold leading-[44px] tracking-tight text-primary">
+              TalentMatch RAG
+            </h1>
             <p className="mt-1 text-on-surface-variant">
               Semantic resume matching engine — system overview and quick actions
             </p>
@@ -66,7 +72,7 @@ export function Dashboard() {
             ].map((card) => (
               <div
                 key={card.label}
-                className="rounded-xl border border-outline-variant bg-surface-container-lowest p-6 shadow-sm"
+                className="card-elevated rounded-[10px] border border-outline-variant bg-surface-container-lowest p-6"
               >
                 <div className="mb-4 flex items-center justify-between">
                   <span className="text-xs font-medium uppercase tracking-wide text-on-surface-variant">
@@ -79,7 +85,9 @@ export function Dashboard() {
                     {card.value}
                   </span>
                 ) : (
-                  <p className={`font-bold text-primary ${card.small ? 'text-sm' : 'text-3xl'}`}>
+                  <p
+                    className={`tabular-nums font-bold text-primary ${card.small ? 'text-sm' : 'text-3xl'}`}
+                  >
                     {card.value}
                   </p>
                 )}
@@ -90,14 +98,14 @@ export function Dashboard() {
           <div className="mb-8 flex flex-wrap gap-4">
             <Link
               to="/ingestion"
-              className="inline-flex items-center gap-2 rounded-lg bg-secondary px-6 py-3 text-sm font-semibold text-on-secondary shadow-sm transition-all hover:opacity-90 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-[10px] bg-secondary px-6 py-3 text-sm font-semibold text-on-secondary shadow-sm transition-all hover:opacity-90 active:scale-[0.98]"
             >
               <Icon name="upload_file" />
               Upload Resumes
             </Link>
             <Link
               to="/matching"
-              className="inline-flex items-center gap-2 rounded-lg border border-outline-variant bg-surface-container-lowest px-6 py-3 text-sm font-semibold text-primary transition-all hover:bg-surface-container-low"
+              className="inline-flex items-center gap-2 rounded-[10px] border border-outline-variant bg-surface-container-lowest px-6 py-3 text-sm font-semibold text-primary transition-all hover:bg-surface-container-low"
             >
               <Icon name="query_stats" />
               Run Job Match
@@ -105,19 +113,24 @@ export function Dashboard() {
           </div>
 
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-            <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-6 lg:col-span-2">
-              <h3 className="mb-4 text-lg font-semibold text-primary">Recent Activity</h3>
-              <div className="space-y-3">
+            <div className="card-elevated rounded-[10px] border border-outline-variant bg-surface-container-lowest lg:col-span-2">
+              <div className="border-b border-outline-variant px-6 py-4">
+                <h3 className="text-lg font-semibold text-primary">Recent Activity</h3>
+              </div>
+              <div className="space-y-3 p-6">
                 {(stats?.recent_activity ?? []).map((item, index) => (
                   <div
                     key={`${item.type}-${index}`}
-                    className="flex items-center justify-between rounded-lg border border-outline-variant/50 bg-surface-container-low px-4 py-3"
+                    className="flex items-center justify-between rounded-lg border border-outline-variant/50 bg-surface-container-low px-4 py-3 transition-colors hover:bg-surface-container"
                   >
                     <div className="flex items-center gap-3">
-                      <Icon name={item.type === 'ingestion' ? 'upload_file' : 'search'} className="text-secondary" />
+                      <Icon
+                        name={item.type === 'ingestion' ? 'upload_file' : 'search'}
+                        className="text-secondary"
+                      />
                       <span className="text-sm font-medium">{item.label}</span>
                     </div>
-                    <span className="text-xs text-on-surface-variant">
+                    <span className="tabular-nums text-xs text-on-surface-variant">
                       {formatTimestamp(item.timestamp)}
                     </span>
                   </div>
@@ -128,9 +141,11 @@ export function Dashboard() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-6">
-              <h3 className="mb-4 text-lg font-semibold text-primary">System Config</h3>
-              <div className="flex flex-wrap gap-2">
+            <div className="card-elevated rounded-[10px] border border-outline-variant bg-surface-container-lowest">
+              <div className="border-b border-outline-variant px-6 py-4">
+                <h3 className="text-lg font-semibold text-primary">System Config</h3>
+              </div>
+              <div className="flex flex-wrap gap-2 p-6">
                 <span className="rounded-full bg-secondary/10 px-3 py-1 text-xs font-medium text-secondary">
                   {stats?.embedding_model ?? 'text-embedding-3-small'}
                 </span>

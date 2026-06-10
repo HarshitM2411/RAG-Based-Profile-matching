@@ -24,6 +24,8 @@
   --color-tertiary-fixed-dim: #4fdbc8;
   --color-on-tertiary-container: #009485;
   --color-on-tertiary-fixed: #00201c;
+  --color-tertiary: #000000;
+  --color-surface-variant: #e0e3e5;
   --color-outline-variant: #c6c6cd;
   --color-error: #ba1a1a;
   --color-error-container: #ffdad6;
@@ -80,4 +82,15 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: #e2e8f0;
   border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
+
+.card-elevated {
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
