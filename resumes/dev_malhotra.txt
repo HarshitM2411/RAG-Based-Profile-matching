@@ -1,0 +1,21 @@
+DEV MALHOTRA
+Email: dev.malhotra@email.com | Phone: +91-9654321098
+
+SUMMARY
+DevOps and platform engineer with 6 years of experience automating cloud infrastructure on AWS and Azure using Docker and Kubernetes.
+
+EXPERIENCE
+Senior DevOps Engineer | InfraScale | 2021 - Present
+- Managed Kubernetes clusters and containerized microservices across AWS and Azure environments.
+- Built CI/CD pipelines with Docker, Git workflows, and Linux-based deployment automation.
+- Monitored PostgreSQL and Redis-backed services for uptime and performance.
+
+DevOps Engineer | CloudAxis | 2018 - 2021
+- Provisioned cloud resources and standardized Docker images for development teams.
+- Supported FastAPI and Flask application deployments on Linux servers.
+
+EDUCATION
+B.Tech Information Technology | Manipal Institute of Technology | 2018
+
+SKILLS
+Python, SQL, AWS, Azure, Docker, Kubernetes, PostgreSQL, Redis, FastAPI, Flask, Git, Linux

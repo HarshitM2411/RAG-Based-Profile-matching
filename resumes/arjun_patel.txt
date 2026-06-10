@@ -1,0 +1,22 @@
+ARJUN PATEL
+Email: arjun.patel@email.com | Phone: +91-9812345670
+
+SUMMARY
+Python Machine Learning Engineer with 8 years of experience building production NLP systems, MLOps pipelines, and cloud-deployed models on AWS.
+
+EXPERIENCE
+Principal ML Engineer | CogniTech AI | 2020 - Present
+- Built end-to-end NLP pipelines using Python, PyTorch, and HuggingFace for document classification.
+- Deployed model serving with Docker and Kubernetes on AWS with PostgreSQL metadata stores.
+- Led Spark-based feature engineering workflows and Airflow orchestration for retraining jobs.
+
+ML Engineer | QuantNova | 2016 - 2020
+- Developed scikit-learn and pandas pipelines for fraud detection models.
+- Integrated Redis caching and FastAPI inference endpoints for low-latency scoring.
+
+EDUCATION
+M.Tech Artificial Intelligence | IISc Bangalore | 2016
+B.Tech Computer Science | NIT Surat | 2014
+
+SKILLS
+Python, SQL, Machine Learning, Deep Learning, NLP, PyTorch, TensorFlow, scikit-learn, pandas, NumPy, AWS, Docker, Kubernetes, PostgreSQL, Redis, Spark, Airflow, FastAPI, Git, Linux

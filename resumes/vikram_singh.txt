@@ -1,0 +1,21 @@
+VIKRAM SINGH
+Email: vikram.singh@email.com | Phone: +91-9012345678
+
+SUMMARY
+Backend engineer specializing in distributed systems, microservices, and high-throughput APIs with 7 years of experience.
+
+EXPERIENCE
+Lead Backend Engineer | ScaleOps | 2019 - Present
+- Designed microservices in Go and Python with FastAPI.
+- Operated Kafka-based event systems and Redis caching layers.
+- Deployed services on AWS and Azure using Docker and Kubernetes.
+
+Software Engineer | TechBridge | 2017 - 2019
+- Built Java and Python services integrated with PostgreSQL and MongoDB.
+- Improved API reliability and observability on Linux production hosts.
+
+EDUCATION
+B.Tech Computer Science | DTU Delhi | 2017
+
+SKILLS
+Python, Go, Java, SQL, FastAPI, PostgreSQL, MongoDB, Redis, Kafka, AWS, Azure, Docker, Kubernetes, Git, Linux

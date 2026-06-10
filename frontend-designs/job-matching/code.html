@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Job Matching - TalentMatch RAG</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-fixed-variant": "#005048",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary-container": "#131b2e",
+                        "tertiary-fixed": "#71f8e4",
+                        "on-surface": "#191c1e",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "tertiary-fixed-dim": "#4fdbc8",
+                        "primary": "#000000",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#009485",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#fefcff",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-fixed": "#001a42",
+                        "tertiary-fixed-dim": "#4fdbc8",
+                        "surface-variant": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-container-low": "#f2f4f6",
+                        "surface": "#f7f9fb",
+                        "inverse-surface": "#2d3133",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#00201c",
+                        "surface-bright": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#7c839b",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-primary": "#bec6e0",
+                        "background": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#004395",
+                        "secondary-container": "#2170e4",
+                        "on-background": "#191c1e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-tint": "#565e74",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#00201c",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "primary-fixed-dim": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "sidebar-width": "260px",
+                        "unit": "4px",
+                        "card-gap": "20px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "code-mono": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "code-mono": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .skeleton-pulse {
+            background: linear-gradient(90deg, #f0f2f5 25%, #e0e3e8 50%, #f0f2f5 75%);
+            background-size: 200% 100%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen flex">
+<!-- Sidebar Component -->
+<aside class="fixed left-0 top-0 h-full w-[260px] bg-primary-container text-on-primary-container flex flex-col py-6 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-headline-md font-headline-md text-on-primary">TalentMatch RAG</h1>
+<p class="text-label-md opacity-60">Enterprise Talent Acquisition</p>
+</div>
+<nav class="flex-1 space-y-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:text-on-primary hover:bg-on-primary-fixed-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:text-on-primary hover:bg-on-primary-fixed-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-body-md">Resume Ingestion</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-on-primary-fixed-variant/20 text-on-primary border-l-4 border-secondary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-body-md">Job Matching</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:text-on-primary hover:bg-on-primary-fixed-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-secondary/30">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a recruitment manager in a modern corporate setting, featuring soft studio lighting and a clean, high-end business aesthetic that aligns with the deep blue and white professional color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRenZnIbKg2Y0TNR04GLmgQFnKTqpl1EREb5iUttSjkjz2113ZvxaJ-N0piHDZIJ1BlY1-OZMtV4bjf-1_t0MkAe-k7HcBcqFx0oaOnBusbwkKgKBDHBzbnHVdaZLehJbvC_g68e8O4d7HLtEAL8cAw5gkT_xxAdlMriV2w-C2FEvEjWPz9vxFxsb2Q1cz0PxDxk5blMtZswTnbB9slA5y0uCSe4oPJirl9FE69lkdq53tZmUFLP9cJWO6RgETyz5ST6bNP7eQCyw"/>
+</div>
+<div class="flex flex-col">
+<span class="text-on-primary text-label-md font-bold">Sarah Chen</span>
+<span class="text-on-primary-container/60 text-[10px] uppercase tracking-wider">Sr. Recruiter</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[260px] flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar Component -->
+<header class="fixed top-0 right-0 w-[calc(100%-260px)] h-16 bg-surface border-b border-outline-variant flex items-center justify-between px-container-padding z-40">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-primary">Job Matching Engine</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<input class="w-64 bg-surface-container-low border border-outline-variant rounded-lg px-4 py-1.5 text-body-md focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all" placeholder="Quick search..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:bg-surface-container-high p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:bg-surface-container-high p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<section class="mt-16 p-container-padding flex-1 overflow-y-auto">
+<div class="max-w-[1440px] mx-auto grid grid-cols-12 gap-card-gap">
+<!-- Query Input Section (Left) -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">description</span>
+                                Job Description
+                            </h2>
+<button class="text-secondary text-label-md hover:underline font-medium">Clear Canvas</button>
+</div>
+<textarea class="w-full min-h-[300px] bg-surface-container-low border border-outline-variant rounded-lg p-4 font-body-md text-on-surface focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none resize-none transition-all" id="jd-input" placeholder="Paste the full job description here (Responsibilities, Requirements, Benefits)...
+
+Example: We are looking for a Senior ML Engineer with 5+ years of experience in Python and PyTorch. Experience with RAG architectures and Vector Databases (Pinecone/Milvus) is highly desirable..."></textarea>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex gap-4">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-outline-variant text-label-md">
+<span class="material-symbols-outlined text-sm">attach_file</span>
+<span>Upload PDF/Docx</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-outline-variant text-label-md">
+<span class="material-symbols-outlined text-sm">link</span>
+<span>Import from URL</span>
+</div>
+</div>
+<button class="bg-secondary text-on-secondary px-8 py-3 rounded-lg font-headline-md flex items-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all shadow-md" id="search-btn">
+<span class="material-symbols-outlined">spark</span>
+                                Find Top Matches
+                            </button>
+</div>
+</div>
+<!-- Detected Requirements Panel (Responsive) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<h3 class="font-headline-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                            Requirement Insights
+                        </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<p class="text-label-md text-on-surface-variant mb-2 uppercase tracking-wide">Required Skills</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-label-md">Python</span>
+<span class="px-3 py-1 bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-label-md">PyTorch</span>
+<span class="px-3 py-1 bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-label-md">NLP</span>
+<span class="px-3 py-1 bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-label-md">RAG</span>
+<span class="px-3 py-1 bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-label-md">AWS</span>
+</div>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant mb-2 uppercase tracking-wide">Extracted Metadata</p>
+<div class="space-y-2">
+<div class="flex items-center justify-between text-body-md border-b border-outline-variant pb-1">
+<span class="text-on-surface-variant">Experience</span>
+<span class="font-bold">5+ Years</span>
+</div>
+<div class="flex items-center justify-between text-body-md border-b border-outline-variant pb-1">
+<span class="text-on-surface-variant">Seniority</span>
+<span class="font-bold">Senior / Lead</span>
+</div>
+<div class="flex items-center justify-between text-body-md border-b border-outline-variant pb-1">
+<span class="text-on-surface-variant">Location</span>
+<span class="font-bold">Remote / Hybrid</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Settings & Configuration (Right) -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<h3 class="font-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">tune</span>
+                            Matching Parameters
+                        </h3>
+<!-- Top K results Slider -->
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-center">
+<label class="text-body-md font-medium">Top K Results</label>
+<span class="text-secondary font-bold text-lg" id="k-value">10</span>
+</div>
+<input class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-secondary" id="k-slider" max="20" min="1" type="range" value="10"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant uppercase tracking-tighter">
+<span>Precision</span>
+<span>Recall Focus</span>
+</div>
+</div>
+<!-- Toggles -->
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-body-md font-medium">Strict filtering</span>
+<span class="text-label-md text-on-surface-variant">Only "Must-have" skills</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-body-md font-medium">Vector-only search</span>
+<span class="text-label-md text-on-surface-variant">Ignore keyword overlap</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+</div>
+<hr class="my-6 border-outline-variant"/>
+<div class="p-4 bg-tertiary-fixed/10 border border-tertiary-fixed/30 rounded-lg">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container">info</span>
+<p class="text-label-md text-on-tertiary-container">Your current selection will query against the <strong>Engineering</strong> index (14.2k resumes).</p>
+</div>
+</div>
+</div>
+<!-- Search History Bento -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<h3 class="text-label-md text-on-surface-variant uppercase tracking-widest mb-4">Recent Searches</h3>
+<div class="space-y-3">
+<div class="p-3 bg-surface-container-low rounded-lg hover:bg-surface-container transition-colors cursor-pointer border border-outline-variant/30">
+<p class="text-body-md font-medium truncate">Senior Product Manager (AI)</p>
+<p class="text-[10px] text-on-surface-variant uppercase mt-1">2 hours ago • 12 matches</p>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg hover:bg-surface-container transition-colors cursor-pointer border border-outline-variant/30">
+<p class="text-body-md font-medium truncate">Backend Engineer (Go/Kubernetes)</p>
+<p class="text-[10px] text-on-surface-variant uppercase mt-1">Yesterday • 8 matches</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Loading Overlay (Hidden by Default) -->
+<div class="hidden fixed inset-0 bg-white/80 backdrop-blur-sm z-[100] flex flex-col items-center justify-center p-container-padding" id="loading-overlay">
+<div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl border border-outline-variant p-10 flex flex-col items-center">
+<div class="w-16 h-16 border-4 border-secondary/20 border-t-secondary rounded-full animate-spin mb-8"></div>
+<h3 class="font-headline-lg text-primary mb-2 text-center" id="loading-status">Querying vector store...</h3>
+<p class="text-body-md text-on-surface-variant mb-10 text-center">Comparing semantic embeddings against 14,000+ talent profiles.</p>
+<div class="w-full space-y-4">
+<div class="h-16 w-full skeleton-pulse rounded-lg"></div>
+<div class="h-16 w-full skeleton-pulse rounded-lg opacity-60"></div>
+<div class="h-16 w-full skeleton-pulse rounded-lg opacity-30"></div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions and Loading Simulation
+        const searchBtn = document.getElementById('search-btn');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingStatus = document.getElementById('loading-status');
+        const kSlider = document.getElementById('k-slider');
+        const kValueDisplay = document.getElementById('k-value');
+
+        kSlider.addEventListener('input', (e) => {
+            kValueDisplay.textContent = e.target.value;
+        });
+
+        searchBtn.addEventListener('click', () => {
+            loadingOverlay.classList.remove('hidden');
+            
+            const statuses = [
+                "Querying vector store...",
+                "Scoring candidates...",
+                "Ranking by strict requirements...",
+                "Generating match summaries..."
+            ];
+            
+            let currentStatus = 0;
+            const statusInterval = setInterval(() => {
+                currentStatus++;
+                if (currentStatus < statuses.length) {
+                    loadingStatus.textContent = statuses[currentStatus];
+                } else {
+                    clearInterval(statusInterval);
+                    // Simulation end
+                    setTimeout(() => {
+                        loadingOverlay.classList.add('hidden');
+                        alert('Top candidates matched and ranked! Navigating to results dashboard.');
+                    }, 1000);
+                }
+            }, 1200);
+        });
+
+        // Toggle focus state visual
+        const jdInput = document.getElementById('jd-input');
+        jdInput.addEventListener('focus', () => {
+            jdInput.parentElement.classList.add('ring-1', 'ring-secondary/50');
+        });
+        jdInput.addEventListener('blur', () => {
+            jdInput.parentElement.classList.remove('ring-1', 'ring-secondary/50');
+        });
+    </script>
+</body></html>

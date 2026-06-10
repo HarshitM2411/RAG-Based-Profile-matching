@@ -1,0 +1,22 @@
+PRIYA SHARMA
+Email: priya.sharma@email.com | Phone: +91-9876543210
+
+SUMMARY
+Machine Learning Engineer with 6 years of experience building NLP pipelines, recommendation systems, and production ML services on AWS.
+
+EXPERIENCE
+Senior ML Engineer | DataFlow Labs | 2021 - Present
+- Built NLP classification pipelines using Python, PyTorch, and HuggingFace transformers.
+- Deployed models with Docker and Kubernetes on AWS.
+- Designed ETL workflows with Apache Spark and Airflow.
+
+ML Engineer | Insight Analytics | 2018 - 2021
+- Developed scikit-learn and pandas-based feature pipelines for customer churn prediction.
+- Integrated PostgreSQL and Redis for model serving and caching.
+
+EDUCATION
+M.Tech Computer Science | IIT Delhi | 2018
+B.Tech Information Technology | NIT Warangal | 2016
+
+SKILLS
+Python, SQL, Machine Learning, Deep Learning, NLP, PyTorch, scikit-learn, pandas, AWS, Docker, Kubernetes, PostgreSQL, Redis, Spark, Airflow, Git, Linux

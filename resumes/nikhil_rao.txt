@@ -1,0 +1,22 @@
+NIKHIL RAO
+Email: nikhil.rao@email.com | Phone: +91-9988001122
+
+SUMMARY
+Machine Learning engineer with 6 years of experience building recommendation systems and NLP products on GCP and AWS.
+
+EXPERIENCE
+ML Engineer | RecoMind Technologies | 2020 - Present
+- Built recommendation and ranking models using Python, PyTorch, and scikit-learn.
+- Deployed training pipelines with Spark and Airflow on GCP.
+- Served models via FastAPI with Docker and Kubernetes on AWS.
+
+Data Scientist | AdVantage AI | 2018 - 2020
+- Developed pandas and SQL-based feature engineering for click prediction models.
+- Integrated PostgreSQL and Redis for online feature serving.
+
+EDUCATION
+M.Tech Data Science | IIT Madras | 2018
+B.Tech Computer Science | Osmania University | 2016
+
+SKILLS
+Python, SQL, Machine Learning, Deep Learning, NLP, PyTorch, scikit-learn, pandas, NumPy, Spark, Airflow, FastAPI, PostgreSQL, Redis, AWS, GCP, Docker, Kubernetes, Git, Linux

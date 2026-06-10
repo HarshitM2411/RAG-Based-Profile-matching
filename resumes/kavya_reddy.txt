@@ -1,0 +1,21 @@
+KAVYA REDDY
+Email: kavya.reddy@email.com | Phone: +91-9701234567
+
+SUMMARY
+Frontend engineer with 4 years of experience building responsive React applications with TypeScript and modern JavaScript tooling.
+
+EXPERIENCE
+Frontend Developer | PixelCraft Digital | 2022 - Present
+- Built customer-facing dashboards in React and TypeScript with Node.js BFF services.
+- Integrated REST APIs and improved page performance with component-level optimization.
+- Collaborated on CI/CD pipelines deploying static assets to AWS.
+
+Junior UI Developer | BrightWeb Studio | 2020 - 2022
+- Implemented UI components in JavaScript and React for e-commerce clients.
+- Wrote unit tests and participated in Git-based code reviews.
+
+EDUCATION
+B.Tech Computer Science | SRM University | 2020
+
+SKILLS
+JavaScript, TypeScript, React, Node.js, SQL, PostgreSQL, AWS, Docker, Git, Linux

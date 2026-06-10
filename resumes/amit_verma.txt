@@ -1,0 +1,21 @@
+AMIT VERMA
+Email: amit.verma@email.com | Phone: +91-9876012345
+
+SUMMARY
+Senior data engineer with 7 years of experience designing large-scale Spark and Kafka pipelines on AWS and GCP.
+
+EXPERIENCE
+Lead Data Engineer | StreamLine Analytics | 2020 - Present
+- Architected real-time and batch data pipelines using Spark, Kafka, and Airflow.
+- Managed PostgreSQL and Elasticsearch data layers for search and reporting products.
+- Deployed pipeline infrastructure with Docker and Kubernetes on AWS and GCP.
+
+Data Engineer | DataPulse | 2017 - 2020
+- Built Python ETL jobs with pandas and SQL for marketing analytics.
+- Supported Linux-based scheduling and Git workflows for data platform teams.
+
+EDUCATION
+B.Tech Computer Science | IIT Roorkee | 2017
+
+SKILLS
+Python, SQL, Spark, Kafka, Airflow, PostgreSQL, Elasticsearch, AWS, GCP, Docker, Kubernetes, pandas, Git, Linux

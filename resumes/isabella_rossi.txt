@@ -1,0 +1,21 @@
+ISABELLA ROSSI
+Email: isabella.rossi@email.com | Phone: +39-3471234567
+
+SUMMARY
+Python web developer with 3 years of experience building Django and Flask applications with PostgreSQL backends.
+
+EXPERIENCE
+Backend Developer | Romano Digital | 2022 - Present
+- Developed REST APIs with Django and Flask integrated with PostgreSQL databases.
+- Containerized applications with Docker and deployed to AWS Linux environments.
+- Wrote SQL migrations and optimized query performance for high-traffic endpoints.
+
+Junior Developer | AppCraft Milan | 2021 - 2022
+- Built internal tools in Python and JavaScript for operations teams.
+- Participated in Git-based development and code review processes.
+
+EDUCATION
+B.Sc. Software Engineering | Politecnico di Milano | 2021
+
+SKILLS
+Python, JavaScript, Django, Flask, SQL, PostgreSQL, AWS, Docker, Git, Linux

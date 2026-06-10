@@ -1,0 +1,21 @@
+LIAM CHEN
+Email: liam.chen@email.com | Phone: +1-415-555-0198
+
+SUMMARY
+Full-stack engineer with 5 years of experience delivering React and Node.js applications with TypeScript and cloud-native backends.
+
+EXPERIENCE
+Software Engineer | Horizon Apps | 2021 - Present
+- Built full-stack features using React, TypeScript, Node.js, and PostgreSQL.
+- Deployed containerized services with Docker on AWS and managed Linux hosts.
+- Integrated MongoDB for user session storage and Redis for caching.
+
+Software Engineer | StartupLoop | 2019 - 2021
+- Developed REST APIs in Python with Flask and FastAPI for mobile clients.
+- Implemented Git-based workflows and automated testing in CI pipelines.
+
+EDUCATION
+B.S. Computer Science | University of Washington | 2019
+
+SKILLS
+Python, JavaScript, TypeScript, React, Node.js, FastAPI, Flask, SQL, PostgreSQL, MongoDB, Redis, AWS, Docker, Git, Linux

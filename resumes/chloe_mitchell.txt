@@ -1,0 +1,21 @@
+CHLOE MITCHELL
+Email: chloe.mitchell@email.com | Phone: +1-617-555-0187
+
+SUMMARY
+Junior software engineer with 2 years of experience building web features with React, Python, and SQL databases.
+
+EXPERIENCE
+Software Engineer | NorthBridge Software | 2023 - Present
+- Implemented frontend components in React and TypeScript for SaaS dashboards.
+- Built backend endpoints in Python with Flask and PostgreSQL.
+- Used Git and Docker in team development workflows on Linux workstations.
+
+Software Engineering Intern | CampusTech Labs | 2022 - 2023
+- Assisted with JavaScript bug fixes and SQL query tuning for internal tools.
+- Wrote unit tests for API endpoints and documentation for onboarding guides.
+
+EDUCATION
+B.S. Computer Science | Boston University | 2023
+
+SKILLS
+Python, JavaScript, TypeScript, React, Flask, SQL, PostgreSQL, Docker, Git, Linux

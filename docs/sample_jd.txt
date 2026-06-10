@@ -1,0 +1,10 @@
+We are looking for a Python Machine Learning Engineer with 5+ years of experience.
+
+Required skills:
+- Python
+- SQL
+- AWS
+- Machine Learning
+- PyTorch or TensorFlow
+
+The candidate will build NLP pipelines, deploy models with Docker and Kubernetes, and work with PostgreSQL and Spark-based data workflows.

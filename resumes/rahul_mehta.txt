@@ -1,0 +1,21 @@
+RAHUL MEHTA
+Email: rahul.mehta@email.com | Phone: +91-9123456780
+
+SUMMARY
+Full-stack developer with 4 years of experience building web applications using React, Node.js, and cloud-native backends.
+
+EXPERIENCE
+Software Engineer | CloudNine Tech | 2022 - Present
+- Built REST APIs with FastAPI and Flask backed by PostgreSQL and MongoDB.
+- Developed React frontends with TypeScript and integrated CI/CD on AWS.
+- Containerized services with Docker and monitored deployments on Linux servers.
+
+Junior Developer | WebCraft Solutions | 2020 - 2022
+- Implemented CRUD features in Django and JavaScript applications.
+- Wrote SQL queries and optimized database access patterns.
+
+EDUCATION
+B.Tech Computer Science | VIT Vellore | 2020
+
+SKILLS
+Python, JavaScript, TypeScript, React, Node.js, FastAPI, Flask, Django, SQL, PostgreSQL, MongoDB, AWS, Docker, Git, Linux

@@ -1,0 +1,21 @@
+SANJAY GUPTA
+Email: sanjay.gupta@email.com | Phone: +91-9123987654
+
+SUMMARY
+Backend software engineer with 9 years of experience designing Java and Python microservices for enterprise financial platforms.
+
+EXPERIENCE
+Senior Software Engineer | FinCore Systems | 2019 - Present
+- Designed REST APIs in Java and Python with PostgreSQL and MongoDB data layers.
+- Implemented Kafka-based event streaming for transaction processing.
+- Deployed services with Docker on AWS and maintained Linux production environments.
+
+Software Engineer | Enterprise Logic | 2015 - 2019
+- Built Django and Java backend modules for internal operations tooling.
+- Optimized SQL queries and improved database performance on PostgreSQL.
+
+EDUCATION
+B.Tech Computer Science | Jadavpur University | 2015
+
+SKILLS
+Java, Python, SQL, Django, FastAPI, PostgreSQL, MongoDB, Kafka, AWS, Docker, Git, Linux

@@ -1,0 +1,24 @@
+Alice Wang
+Data Scientist
+alice.wang@email.com | (555) 234-5678
+
+SUMMARY
+Data scientist with 5+ years of experience building machine learning pipelines
+and predictive models for e-commerce and healthcare applications.
+
+EXPERIENCE
+Senior Data Scientist | Insight Analytics | 2021 - Present
+- Designed machine learning models for customer churn prediction (92% accuracy)
+- Led A/B testing framework reducing experiment cycle time by 40%
+- Mentored junior analysts on statistical methods and Python best practices
+
+Data Analyst | RetailMetrics Inc. | 2019 - 2021
+- Built dashboards in Python and SQL for executive reporting
+- Implemented NLP sentiment analysis on product reviews
+
+EDUCATION
+M.S. Statistics, Stanford University
+B.S. Mathematics, UC Berkeley
+
+SKILLS
+Python, R, SQL, scikit-learn, TensorFlow, PyTorch, Spark, Tableau

@@ -1,0 +1,21 @@
+ETHAN BROOKS
+Email: ethan.brooks@email.com | Phone: +1-512-555-0142
+
+SUMMARY
+Systems engineer with 10 years of experience building high-performance backend services in Rust and Go for distributed platforms.
+
+EXPERIENCE
+Staff Engineer | CoreSystems Inc. | 2019 - Present
+- Designed low-latency services in Rust with Kafka messaging and Redis caching.
+- Operated PostgreSQL clusters and deployed workloads with Docker and Kubernetes on AWS.
+- Led performance tuning and observability improvements on Linux production systems.
+
+Software Engineer | NetForge | 2014 - 2019
+- Built Go microservices and Python tooling for internal platform automation.
+- Maintained SQL schemas and migration pipelines for transactional data stores.
+
+EDUCATION
+B.S. Computer Engineering | Georgia Institute of Technology | 2014
+
+SKILLS
+Rust, Go, Python, SQL, Kafka, Redis, PostgreSQL, AWS, Docker, Kubernetes, Git, Linux

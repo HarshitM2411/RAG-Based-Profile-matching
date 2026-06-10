@@ -1,0 +1,22 @@
+FATIMA HASSAN
+Email: fatima.hassan@email.com | Phone: +971-501234567
+
+SUMMARY
+Cloud data engineer with 6 years of experience building analytics platforms on Azure and GCP using Spark, Kafka, and Airflow.
+
+EXPERIENCE
+Data Engineer | GulfData Systems | 2020 - Present
+- Built batch and streaming pipelines with Spark, Kafka, and Airflow on Azure.
+- Managed PostgreSQL warehouses and Elasticsearch search indexes for analytics teams.
+- Containerized data jobs with Docker and Kubernetes on GCP for hybrid workloads.
+
+Data Engineer | OmniRetail | 2018 - 2020
+- Developed Python ETL scripts with pandas and SQL for sales reporting.
+- Supported Linux-based job scheduling and Git version control for pipeline code.
+
+EDUCATION
+M.Sc. Information Systems | American University of Sharjah | 2018
+B.Tech Computer Engineering | BITS Pilani Dubai | 2016
+
+SKILLS
+Python, SQL, Spark, Kafka, Airflow, PostgreSQL, Elasticsearch, Azure, GCP, Docker, Kubernetes, pandas, Git, Linux

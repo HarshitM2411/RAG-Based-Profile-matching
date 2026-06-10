@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Match Results - TalentMatch RAG</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-fixed-variant": "#005048",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary-container": "#131b2e",
+                        "tertiary-fixed": "#71f8e4",
+                        "on-surface": "#191c1e",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "tertiary-fixed-dim": "#4fdbc8",
+                        "primary": "#000000",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#009485",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#fefcff",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-fixed": "#001a42",
+                        "tertiary-fixed-dim": "#4fdbc8",
+                        "secondary": "#0058be",
+                        "surface-variant": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-container-low": "#f2f4f6",
+                        "surface": "#f7f9fb",
+                        "inverse-surface": "#2d3133",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#00201c",
+                        "surface-bright": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#7c839b",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-primary": "#bec6e0",
+                        "background": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#004395",
+                        "secondary-container": "#2170e4",
+                        "on-background": "#191c1e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-tint": "#565e74",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#00201c",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "primary-fixed-dim": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "sidebar-width": "260px",
+                        "unit": "4px",
+                        "card-gap": "20px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "code-mono": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "code-mono": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .match-ring {
+            transform: rotate(-90deg);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-body-md text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-[260px] bg-primary-container flex flex-col py-6 z-50">
+<div class="px-6 mb-8">
+<h1 class="text-headline-md font-headline-md text-on-primary">TalentMatch RAG</h1>
+<p class="text-label-md text-on-primary-container">Enterprise Talent Acquisition</p>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:text-on-primary hover:bg-on-primary-fixed-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:text-on-primary hover:bg-on-primary-fixed-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-body-md">Resume Ingestion</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-on-primary-fixed-variant/20 text-on-primary border-l-4 border-secondary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-body-md">Job Matching</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:text-on-primary hover:bg-on-primary-fixed-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-6 pt-6 border-t border-on-primary-fixed-variant/20">
+<div class="flex items-center gap-3">
+<img alt="User profile" class="w-10 h-10 rounded-full bg-surface-container-highest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeukrNZHOePhYtEG0-tDBL9nIu9rGyaes2zCe05DITl_fskIhKmcQikjz5OZ0WxxpnCQxKzIus6DrrxylgYgarPDzyajoYQX1hD3Cd4sMG5aN0SM6ioZfWLEa_rnqQMxyADyHjpw9xQIQnsFL7h4DdSZ0mb_T7xBt_iJk3kiervyFjXlqw-s_M2iegBve-yQ3UdG3RkydoyOQykWIaO3FOYZp5ZD9KTv3pQLFNR71L3OdHtkSxarVkcn1m2UYU4lqBT6zRzRTdU18"/>
+<div class="overflow-hidden">
+<p class="text-on-primary font-medium truncate">Alex Rodriguez</p>
+<p class="text-label-md text-on-primary-container truncate">Lead Recruiter</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-260px)] h-16 bg-surface flex items-center justify-between px-container-padding z-40 border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-md text-headline-md text-primary">Match Results</h2>
+<span class="bg-secondary-container/20 text-secondary px-3 py-1 rounded-full text-label-md font-bold">
+                Senior Fullstack Engineer
+            </span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-xl text-body-md focus:outline-none focus:ring-2 focus:ring-secondary/20 w-64" placeholder="Search results..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-16 pl-[260px] min-h-screen flex">
+<!-- Results List -->
+<div class="flex-1 p-6 custom-scrollbar overflow-y-auto">
+<div class="max-w-4xl mx-auto space-y-6">
+<div class="flex items-center justify-between mb-4">
+<p class="text-on-surface-variant font-medium">Found 12 highly relevant candidates</p>
+<div class="flex items-center gap-2">
+<span class="text-label-md text-on-surface-variant uppercase tracking-wider">Sort by:</span>
+<select class="bg-transparent border-none text-body-md font-bold text-secondary focus:ring-0">
+<option>RAG Match Score</option>
+<option>Years of Experience</option>
+<option>Technical Depth</option>
+</select>
+</div>
+</div>
+<!-- Candidate Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold text-headline-md">
+                                JD
+                            </div>
+<div>
+<h3 class="text-headline-md font-bold text-primary">John Doe</h3>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">description</span>
+<span class="text-body-md">/resumes/eng/john-doe-fullstack.pdf</span>
+</div>
+</div>
+</div>
+<div class="relative w-16 h-16">
+<svg class="w-full h-full match-ring" viewbox="0 0 36 36">
+<circle class="text-surface-container-highest" cx="18" cy="18" fill="transparent" r="16" stroke="currentColor" stroke-width="3"></circle>
+<circle class="text-tertiary-fixed-dim" cx="18" cy="18" fill="transparent" r="16" stroke="currentColor" stroke-dasharray="100" stroke-dashoffset="8" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-body-md font-bold text-tertiary-fixed-dim">92%</span>
+<span class="text-[8px] uppercase tracking-tighter text-on-surface-variant font-bold">Match</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Matched Skills -->
+<div>
+<p class="text-label-md font-bold text-on-surface-variant mb-2 uppercase">Matched Skills</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-tertiary/10 text-on-tertiary-container px-3 py-1 rounded-full text-label-md font-medium">React.js</span>
+<span class="bg-tertiary/10 text-on-tertiary-container px-3 py-1 rounded-full text-label-md font-medium">Python</span>
+<span class="bg-tertiary/10 text-on-tertiary-container px-3 py-1 rounded-full text-label-md font-medium">AWS Lambda</span>
+<span class="bg-tertiary/10 text-on-tertiary-container px-3 py-1 rounded-full text-label-md font-medium">Vector DBs</span>
+<span class="bg-tertiary/10 text-on-tertiary-container px-3 py-1 rounded-full text-label-md font-medium">TypeScript</span>
+</div>
+</div>
+<!-- Relevant Excerpts -->
+<div>
+<p class="text-label-md font-bold text-on-surface-variant mb-2 uppercase">Relevant Excerpts</p>
+<div class="bg-surface-container-low border-l-4 border-secondary p-3 rounded-r-lg">
+<p class="text-body-md font-code-mono text-on-surface-variant italic">
+                                    "...architected a RAG-based search engine using Pinecone and LangChain, improving information retrieval latency by 40% across 5TB of document data..."
+                                </p>
+</div>
+</div>
+<!-- AI Reasoning -->
+<div class="bg-secondary/5 p-4 rounded-lg border border-secondary/10">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary text-[18px]">psychology</span>
+<p class="text-label-md font-bold text-secondary uppercase">AI Reasoning</p>
+</div>
+<p class="text-body-md text-on-surface">
+                                John demonstrates high alignment with the "Search Architect" requirements. His recent work with Vector DBs directly mirrors the JD's focus on enterprise AI scalability. His 5+ years of Python expertise exceeds the minimum requirement, and his leadership in React migration suggests strong senior-level technical ownership.
+                            </p>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-end gap-3">
+<button class="px-4 py-2 text-secondary font-bold hover:bg-secondary/5 rounded-xl transition-all">View Full Resume</button>
+<button class="px-6 py-2 bg-secondary text-on-secondary rounded-xl font-bold shadow-sm hover:opacity-90 active:scale-[0.98] transition-all">Schedule Interview</button>
+</div>
+</div>
+<!-- Candidate Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold text-headline-md">
+                                SM
+                            </div>
+<div>
+<h3 class="text-headline-md font-bold text-primary">Sarah Miller</h3>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">description</span>
+<span class="text-body-md">/resumes/eng/sarah-m-fullstack-v2.pdf</span>
+</div>
+</div>
+</div>
+<div class="relative w-16 h-16">
+<svg class="w-full h-full match-ring" viewbox="0 0 36 36">
+<circle class="text-surface-container-highest" cx="18" cy="18" fill="transparent" r="16" stroke="currentColor" stroke-width="3"></circle>
+<circle class="text-tertiary-fixed-dim" cx="18" cy="18" fill="transparent" r="16" stroke="currentColor" stroke-dasharray="100" stroke-dashoffset="15" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-body-md font-bold text-tertiary-fixed-dim">85%</span>
+<span class="text-[8px] uppercase tracking-tighter text-on-surface-variant font-bold">Match</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<p class="text-label-md font-bold text-on-surface-variant mb-2 uppercase">Matched Skills</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-tertiary/10 text-on-tertiary-container px-3 py-1 rounded-full text-label-md font-medium">Node.js</span>
+<span class="bg-tertiary/10 text-on-tertiary-container px-3 py-1 rounded-full text-label-md font-medium">Docker</span>
+<span class="bg-tertiary/10 text-on-tertiary-container px-3 py-1 rounded-full text-label-md font-medium">PostgreSQL</span>
+<span class="bg-tertiary/10 text-on-tertiary-container px-3 py-1 rounded-full text-label-md font-medium">OpenAI API</span>
+</div>
+</div>
+<div>
+<p class="text-label-md font-bold text-on-surface-variant mb-2 uppercase">Relevant Excerpts</p>
+<div class="bg-surface-container-low border-l-4 border-secondary p-3 rounded-r-lg">
+<p class="text-body-md font-code-mono text-on-surface-variant italic">
+                                    "...built automated testing pipelines for microservices architecture, ensuring 99.9% uptime for high-traffic financial applications..."
+                                </p>
+</div>
+</div>
+<div class="bg-secondary/5 p-4 rounded-lg border border-secondary/10">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary text-[18px]">psychology</span>
+<p class="text-label-md font-bold text-secondary uppercase">AI Reasoning</p>
+</div>
+<p class="text-body-md text-on-surface">
+                                Sarah has exceptional backend credentials and DevOps experience. While her direct RAG experience is slightly more recent than Doe's, her deep knowledge of containerization and database optimization makes her a strong candidate for the infrastructure aspects of the role.
+                            </p>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-end gap-3">
+<button class="px-4 py-2 text-secondary font-bold hover:bg-secondary/5 rounded-xl transition-all">View Full Resume</button>
+<button class="px-6 py-2 bg-secondary text-on-secondary rounded-xl font-bold shadow-sm hover:opacity-90 active:scale-[0.98] transition-all">Schedule Interview</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Filters Sidebar -->
+<aside class="w-80 border-l border-outline-variant bg-surface flex flex-col">
+<div class="p-6 border-b border-outline-variant bg-surface-container-low">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary">tune</span>
+<h3 class="font-bold text-primary">Ranking Weights</h3>
+</div>
+<p class="text-label-md text-on-surface-variant">Adjust AI priority for this specific match run.</p>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<!-- Weight Slider 1 -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="font-bold text-on-surface">Technical Skills</label>
+<span class="text-secondary font-bold">80%</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" type="range"/>
+<p class="text-label-md text-on-surface-variant">Prioritizes direct match with required tech stack.</p>
+</div>
+<!-- Weight Slider 2 -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="font-bold text-on-surface">Domain Experience</label>
+<span class="text-secondary font-bold">45%</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" type="range"/>
+<p class="text-label-md text-on-surface-variant">Focus on candidates from similar industries.</p>
+</div>
+<!-- Weight Slider 3 -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="font-bold text-on-surface">Project Complexity</label>
+<span class="text-secondary font-bold">65%</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" type="range"/>
+<p class="text-label-md text-on-surface-variant">Matches based on scale of previous work.</p>
+</div>
+<div class="pt-4 space-y-4">
+<h4 class="font-bold text-on-surface uppercase text-[11px] tracking-widest">Skill Priority</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-3 p-2 hover:bg-surface-container-high rounded-lg cursor-pointer transition-colors">
+<input checked="" class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md">Required: React.js</span>
+</label>
+<label class="flex items-center gap-3 p-2 hover:bg-surface-container-high rounded-lg cursor-pointer transition-colors">
+<input checked="" class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md">Required: Python</span>
+</label>
+<label class="flex items-center gap-3 p-2 hover:bg-surface-container-high rounded-lg cursor-pointer transition-colors">
+<input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md">Preferred: Redis</span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low border-t border-outline-variant">
+<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                    Recalculate Ranking
+                </button>
+</div>
+</aside>
+</main>
+<!-- Micro-interaction script for range values -->
+<script>
+        document.querySelectorAll('input[type="range"]').forEach(range => {
+            range.addEventListener('input', (e) => {
+                const label = e.target.parentElement.querySelector('.text-secondary');
+                if(label) label.textContent = `${e.target.value}%`;
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,21 @@
+HARISH KRISHNAN
+Email: harish.krishnan@email.com | Phone: +91-9447011223
+
+SUMMARY
+Systems software engineer with 8 years of experience building performance-critical applications in C++ and Python on Linux.
+
+EXPERIENCE
+Senior Systems Engineer | KernelWorks | 2019 - Present
+- Developed C++ services for low-latency data processing with Kafka integration.
+- Built Python tooling for deployment automation and PostgreSQL schema management.
+- Deployed containerized workloads with Docker and Kubernetes on AWS.
+
+Software Engineer | Embedded Logic | 2016 - 2019
+- Maintained C++ libraries and Linux daemon processes for device firmware teams.
+- Wrote SQL scripts and monitoring dashboards for production health checks.
+
+EDUCATION
+B.Tech Electronics and Communication | Anna University | 2016
+
+SKILLS
+C++, Python, SQL, Kafka, PostgreSQL, AWS, Docker, Kubernetes, Git, Linux

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resume Ingestion - TalentMatch RAG</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-fixed-variant": "#005048",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary-container": "#131b2e",
+                        "tertiary-fixed": "#71f8e4",
+                        "on-surface": "#191c1e",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "tertiary-fixed-dim": "#4fdbc8",
+                        "primary": "#000000",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#009485",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#fefcff",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-fixed": "#001a42",
+                        "tertiary-fixed-dim": "#4fdbc8",
+                        "secondary": "#0058be",
+                        "surface-variant": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-container-low": "#f2f4f6",
+                        "surface": "#f7f9fb",
+                        "inverse-surface": "#2d3133",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#00201c",
+                        "surface-bright": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#7c839b",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-primary": "#bec6e0",
+                        "background": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#004395",
+                        "secondary-container": "#2170e4",
+                        "on-background": "#191c1e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-tint": "#565e74",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#00201c",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "primary-fixed-dim": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "sidebar-width": "260px",
+                        "unit": "4px",
+                        "card-gap": "20px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "code-mono": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "code-mono": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased">
+<!-- Side Navigation Bar -->
+<aside class="fixed left-0 top-0 h-full w-[260px] bg-primary-container flex flex-col py-6 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-headline-md font-headline-md text-on-primary">TalentMatch RAG</h1>
+<p class="text-on-primary-container text-label-md">Enterprise Talent Acquisition</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:text-on-primary hover:bg-on-primary-fixed-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-on-primary-fixed-variant/20 text-on-primary border-l-4 border-secondary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span>Resume Ingestion</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:text-on-primary hover:bg-on-primary-fixed-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span>Job Matching</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:text-on-primary hover:bg-on-primary-fixed-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-6 pt-6 border-t border-on-primary-fixed-variant/20">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+<div>
+<p class="text-on-primary font-medium text-body-md">Alex Recruiter</p>
+<p class="text-on-primary-container text-label-md">Admin Access</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-260px)] h-16 bg-surface flex items-center justify-between px-container-padding border-b border-outline-variant z-40">
+<h2 class="font-headline-md text-headline-md text-primary">Resume Ingestion Pipeline</h2>
+<div class="flex items-center gap-6">
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg text-body-md focus:ring-2 focus:ring-secondary/20" placeholder="Search ingested files..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">account_circle</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-[260px] pt-16 min-h-screen">
+<div class="p-container-padding max-w-[1440px] mx-auto">
+<!-- Success Banner -->
+<div class="mb-8 flex items-center justify-between p-4 bg-tertiary-fixed text-on-tertiary-fixed rounded-xl border border-on-tertiary-container/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-medium">Ingestion complete — 312 chunks stored across 47 resumes</span>
+</div>
+<button class="material-symbols-outlined text-on-tertiary-fixed/60 hover:text-on-tertiary-fixed">close</button>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-card-gap">
+<!-- Upload Zone -->
+<div class="col-span-12 lg:col-span-8 space-y-card-gap">
+<div class="bg-surface-container-lowest p-10 rounded-xl border-2 border-dashed border-outline-variant hover:border-secondary transition-all group flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-[32px]">cloud_upload</span>
+</div>
+<h3 class="text-headline-md font-headline-md mb-2">Drag and drop resumes here</h3>
+<p class="text-on-surface-variant mb-6 max-w-sm">Support for PDF, DOCX, and TXT files. Up to 50 files per batch (max 10MB each).</p>
+<button class="px-8 py-3 bg-secondary text-on-secondary rounded-lg font-medium hover:opacity-90 active:scale-[0.98] transition-all">Select Files from Computer</button>
+</div>
+<!-- File List Table -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md">Current Ingestion Batch</h3>
+<button class="text-secondary font-medium text-body-md hover:underline">Clear List</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant text-label-md uppercase tracking-wider">
+<tr>
+<th class="px-6 py-3 font-semibold">File Name</th>
+<th class="px-6 py-3 font-semibold">Candidate</th>
+<th class="px-6 py-3 font-semibold">Skills</th>
+<th class="px-6 py-3 font-semibold">Exp.</th>
+<th class="px-6 py-3 font-semibold">Status</th>
+<th class="px-6 py-3 font-semibold"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error">picture_as_pdf</span>
+<div>
+<p class="font-medium">sarah_chen_resume.pdf</p>
+<p class="text-label-md text-on-surface-variant">1.2 MB</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-medium">Sarah Chen</td>
+<td class="px-6 py-4">
+<div class="flex gap-1">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-label-md rounded">React</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-label-md rounded">Python</span>
+</div>
+</td>
+<td class="px-6 py-4">8 yrs</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-label-md font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                                                Indexed
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">description</span>
+<div>
+<p class="font-medium">james_wilson_v4.docx</p>
+<p class="text-label-md text-on-surface-variant">842 KB</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-medium">James Wilson</td>
+<td class="px-6 py-4">
+<div class="flex gap-1">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-label-md rounded">Java</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-label-md rounded">AWS</span>
+</div>
+</td>
+<td class="px-6 py-4">5 yrs</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-label-md font-medium">
+<svg class="animate-spin h-3 w-3" viewbox="0 0 24 24">
+<circle class="opacity-25" cx="12" cy="12" fill="none" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
+</svg>
+                                                Processing
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">article</span>
+<div>
+<p class="font-medium">unknown_profile_01.txt</p>
+<p class="text-label-md text-on-surface-variant">12 KB</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant italic">Parsing...</td>
+<td class="px-6 py-4">—</td>
+<td class="px-6 py-4">—</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container text-on-error-container text-label-md font-medium">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                                                Failed
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">refresh</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Control Panel & Progress -->
+<div class="col-span-12 lg:col-span-4 space-y-card-gap">
+<!-- Actions -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant">
+<button class="w-full py-4 bg-primary text-on-primary rounded-lg font-headline-md flex items-center justify-center gap-3 hover:bg-on-primary-fixed-variant transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">database</span>
+                            Build / Update Vector Store
+                        </button>
+<div class="mt-4 flex items-center justify-between text-label-md text-on-surface-variant">
+<span>ChromaDB State: <span class="text-tertiary-fixed-dim font-bold">OPTIMIZED</span></span>
+<span>Last update: 2h ago</span>
+</div>
+</div>
+<!-- Progress Stepper -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant">
+<h3 class="font-headline-md mb-6">Pipeline Progress</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="w-0.5 h-full bg-tertiary-fixed mt-2"></div>
+</div>
+<div class="pb-6">
+<p class="font-medium">Load Files</p>
+<p class="text-label-md text-on-surface-variant">47/47 files successfully loaded</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="w-0.5 h-full bg-tertiary-fixed mt-2"></div>
+</div>
+<div class="pb-6">
+<p class="font-medium">Extract Text &amp; Metadata</p>
+<p class="text-label-md text-on-surface-variant">Entity extraction complete</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center">
+<span class="text-label-md">3</span>
+</div>
+<div class="w-0.5 h-full bg-outline-variant mt-2"></div>
+</div>
+<div class="pb-6">
+<p class="font-medium text-secondary">Section Chunking</p>
+<p class="text-label-md text-on-surface-variant">Splitting into 512-token windows...</p>
+<div class="w-48 h-1.5 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-secondary w-2/3 animate-pulse"></div>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center border border-outline-variant">
+<span class="text-label-md">4</span>
+</div>
+<div class="w-0.5 h-full bg-outline-variant mt-2"></div>
+</div>
+<div class="pb-6">
+<p class="font-medium text-on-surface-variant/60">Generate Embeddings</p>
+<p class="text-label-md text-on-surface-variant/40">Pending text-embedding-ada-002</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center border border-outline-variant">
+<span class="text-label-md">5</span>
+</div>
+</div>
+<div>
+<p class="font-medium text-on-surface-variant/60">Store in ChromaDB</p>
+<p class="text-label-md text-on-surface-variant/40">Awaiting embedding vectors</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Console / Live Log -->
+<div class="bg-primary-container p-4 rounded-xl font-code-mono text-code-mono overflow-hidden">
+<div class="flex items-center justify-between mb-3 border-b border-on-primary-fixed-variant/20 pb-2">
+<span class="text-on-primary-container text-label-md flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-ping"></span>
+                                LIVE_LOG.TXT
+                            </span>
+<span class="text-[10px] text-on-primary-container/40">v2.4.0-stable</span>
+</div>
+<div class="h-48 overflow-y-auto space-y-1 text-on-primary-container/80">
+<p><span class="text-tertiary-fixed-dim">[INFO]</span> Initializing ingestion worker thread #04...</p>
+<p><span class="text-tertiary-fixed-dim">[INFO]</span> Loading model: text-embedding-3-small</p>
+<p><span class="text-secondary-fixed-dim">[DEBUG]</span> Chunk 142/511 processed. Overhead: 12ms</p>
+<p><span class="text-error-container">[WARN]</span> low_confidence_score: File 'unknown_profile_01.txt' missing header metadata.</p>
+<p><span class="text-tertiary-fixed-dim">[INFO]</span> Metadata extraction complete for 'sarah_chen_resume.pdf'</p>
+<p><span class="text-secondary-fixed-dim">[DEBUG]</span> Connecting to ChromaDB persistent storage at /local/vectordb</p>
+<p><span class="text-on-primary-container/40 animate-pulse">_ blinking cursor</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions for the upload zone
+        const uploadZone = document.querySelector('.bg-surface-container-lowest.p-10');
+        if (uploadZone) {
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.classList.add('bg-secondary/5', 'border-secondary');
+            });
+            uploadZone.addEventListener('dragleave', () => {
+                uploadZone.classList.remove('bg-secondary/5', 'border-secondary');
+            });
+        }
+
+        // Auto-scroll the console log
+        const logContainer = document.querySelector('.overflow-y-auto');
+        if (logContainer) {
+            setInterval(() => {
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }, 1000);
+        }
+    </script>
+</body></html>

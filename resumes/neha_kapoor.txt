@@ -1,0 +1,22 @@
+NEHA KAPOOR
+Email: neha.kapoor@email.com | Phone: +91-9090909090
+
+SUMMARY
+Computer Vision engineer with 3 years of experience training deep learning models for image classification and object detection.
+
+EXPERIENCE
+CV Engineer | VisionAI Labs | 2022 - Present
+- Trained TensorFlow and PyTorch models for production vision tasks.
+- Built data preprocessing pipelines with Python, NumPy, and pandas.
+- Deployed inference services on AWS with Docker.
+
+Research Intern | AI Research Center | 2021 - 2022
+- Experimented with deep learning architectures for document understanding.
+- Published internal benchmarks on scikit-learn baselines.
+
+EDUCATION
+M.Tech Artificial Intelligence | IIIT Hyderabad | 2022
+B.Tech Computer Science | PES University | 2020
+
+SKILLS
+Python, Machine Learning, Deep Learning, Computer Vision, TensorFlow, PyTorch, scikit-learn, pandas, NumPy, AWS, Docker, Git, Linux

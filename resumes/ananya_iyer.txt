@@ -1,0 +1,21 @@
+ANANYA IYER
+Email: ananya.iyer@email.com | Phone: +91-9988776655
+
+SUMMARY
+Data engineer with 5+ years of experience designing scalable data pipelines and analytics platforms on GCP and Azure.
+
+EXPERIENCE
+Data Engineer | FinEdge Systems | 2020 - Present
+- Built batch and streaming pipelines with Spark, Kafka, and Airflow.
+- Managed data warehouses in PostgreSQL and Elasticsearch.
+- Automated infrastructure deployments using Docker and Kubernetes on GCP.
+
+Data Analyst | RetailMetrics | 2018 - 2020
+- Created dashboards and reports using SQL, pandas, and Python.
+- Supported ETL jobs and data quality checks for business teams.
+
+EDUCATION
+B.Tech Electronics and Communication | BITS Pilani | 2018
+
+SKILLS
+Python, SQL, Spark, Kafka, Airflow, PostgreSQL, Elasticsearch, GCP, Azure, Docker, Kubernetes, pandas, Git, Linux

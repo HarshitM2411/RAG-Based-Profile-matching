@@ -1,0 +1,22 @@
+MEERA NAIR
+Email: meera.nair@email.com | Phone: +91-9445566778
+
+SUMMARY
+NLP-focused data scientist with 5 years of experience applying deep learning and classical ML to text analytics and search products.
+
+EXPERIENCE
+Data Scientist | LanguageLoop AI | 2021 - Present
+- Built NLP classification and entity extraction models using Python, PyTorch, and scikit-learn.
+- Deployed inference APIs with FastAPI and Docker on GCP.
+- Created feature stores backed by PostgreSQL and pandas-based preprocessing pipelines.
+
+Data Analyst | TextMetrics | 2019 - 2021
+- Developed SQL reports and Python notebooks for customer sentiment analysis.
+- Supported Elasticsearch indexing for document search prototypes.
+
+EDUCATION
+M.S. Data Science | Carnegie Mellon University | 2019
+B.Tech Computer Science | Cochin University of Science and Technology | 2017
+
+SKILLS
+Python, SQL, Machine Learning, Deep Learning, NLP, PyTorch, scikit-learn, pandas, NumPy, FastAPI, PostgreSQL, Elasticsearch, GCP, Docker, Git, Linux

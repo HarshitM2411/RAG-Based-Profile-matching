@@ -1,0 +1,22 @@
+DIANA OKONKWO
+Email: diana.okonkwo@email.com | Phone: +44-7700900123
+
+SUMMARY
+Search and data platform engineer with 5 years of experience building Elasticsearch-backed retrieval systems and analytics pipelines.
+
+EXPERIENCE
+Search Engineer | QueryBase Ltd | 2021 - Present
+- Built full-text search indexes in Elasticsearch with Python ingestion pipelines.
+- Developed FastAPI services for query routing and PostgreSQL metadata storage.
+- Deployed services on AWS with Docker and managed Linux production clusters.
+
+Data Engineer | InsightHub UK | 2019 - 2021
+- Created Spark and Airflow jobs for log aggregation and reporting.
+- Wrote SQL transformations and pandas scripts for data quality validation.
+
+EDUCATION
+M.Sc. Computing | Imperial College London | 2019
+B.Sc. Computer Science | University of Lagos | 2017
+
+SKILLS
+Python, SQL, Elasticsearch, Spark, Airflow, FastAPI, PostgreSQL, AWS, Docker, pandas, Git, Linux

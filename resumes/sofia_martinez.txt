@@ -1,0 +1,22 @@
+SOFIA MARTINEZ
+Email: sofia.martinez@email.com | Phone: +34-612345678
+
+SUMMARY
+Computer Vision engineer with 4 years of experience training deep learning models for industrial inspection and medical imaging.
+
+EXPERIENCE
+Computer Vision Engineer | VisionEdge Labs | 2022 - Present
+- Trained TensorFlow and PyTorch models for object detection and image segmentation.
+- Built preprocessing pipelines with Python, NumPy, and pandas for large image datasets.
+- Deployed inference services on AWS using Docker and FastAPI endpoints.
+
+ML Intern | BioScan Research | 2021 - 2022
+- Experimented with deep learning architectures for radiology image classification.
+- Benchmarked scikit-learn baselines against neural network approaches.
+
+EDUCATION
+M.Sc. Computer Vision | Universidad Politecnica de Madrid | 2022
+B.Sc. Computer Science | Universidad de Barcelona | 2020
+
+SKILLS
+Python, Machine Learning, Deep Learning, Computer Vision, TensorFlow, PyTorch, scikit-learn, pandas, NumPy, FastAPI, AWS, Docker, Git, Linux
